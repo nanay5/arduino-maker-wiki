@@ -1,0 +1,94 @@
+---
+title: "光控灯 — 让 Arduino 感知光线"
+slug: "students/light-switch"
+section: "students"
+category: "入门项目"
+kit: "starter"
+parts: ["arduino-uno"]
+difficulty: 1
+duration: "45分钟"
+version: "1.0"
+updated: "2026-06-09"
+---
+
+import VersionBadge from '../../../components/VersionBadge.astro';
+import DifficultyStars from '../../../components/DifficultyStars.astro';
+import KitCTA from '../../../components/KitCTA.astro';
+import Troubleshooting from '../../../components/Troubleshooting.astro';
+
+<VersionBadge version={frontmatter.version} updated={frontmatter.updated} />
+&nbsp;&nbsp;
+<DifficultyStars difficulty={frontmatter.difficulty} />
+&nbsp;&nbsp;
+<span style="font-size:0.85rem;color:var(--color-text-secondary);">⏱️ {frontmatter.duration}</span>
+
+---
+
+## 📋 材料清单
+
+| 元件 | 型号 | 数量 |
+|---|---|---|
+| 主控板 | Arduino Uno R3 | 1 |
+| 光敏电阻 | GL55 系列 | 1 |
+| 定值电阻 | 10kΩ | 1 |
+| LED | 5mm 红色 | 1 |
+| 电阻 | 220Ω | 1 |
+| 面包板 + 杜邦线 | — | 若干 |
+
+## 🔌 接线图
+
+| 光敏电路 | Arduino |
+|---|---|
+| 光敏电阻一端 | 5V |
+| 光敏电阻另一端 | A0 + 10kΩ接地 |
+| LED 正极（经220Ω） | D13 |
+
+## 💻 代码
+
+```cpp
+#define LIGHT_SENSOR A0
+#define LED_PIN 13
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int lightValue = analogRead(LIGHT_SENSOR);
+  Serial.print("光线值: ");
+  Serial.println(lightValue);
+
+  if (lightValue < 500) {
+    digitalWrite(LED_PIN, HIGH);  // 暗 → 开灯
+  } else {
+    digitalWrite(LED_PIN, LOW);   // 亮 → 关灯
+  }
+  delay(200);
+}
+```
+
+## ⚡ 上传与测试
+
+1. 接好光敏电路和 LED
+2. 上传代码，打开串口监视器
+3. 用手遮住光敏电阻，观察 LED 自动亮起
+4. 放开手让光照到光敏电阻，LED 自动熄灭
+
+<div class="success-box">
+  <h4>✅ 成功现象</h4>
+  <p>环境暗时 LED 自动亮起，环境亮时 LED 自动熄灭。串口监视器实时显示光线数值。</p>
+</div>
+
+<div class="challenge-box">
+  <h4>🏆 挑战任务</h4>
+  <ul>
+    <li><strong>基础：</strong>调整阈值（500）测试不同灵敏度</li>
+    <li><strong>进阶：</strong>用 LED 亮度（PWM）随环境光连续变化——越暗越亮</li>
+    <li><strong>高手：</strong>做成天黑自动开、天亮自动关的"智能路灯"</li>
+  </ul>
+</div>
+
+<Troubleshooting parts={frontmatter.parts} section={frontmatter.section} />
+
+<KitCTA kit={frontmatter.kit} section={frontmatter.section} />

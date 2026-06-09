@@ -18,9 +18,15 @@ export default defineConfig({
           label: '🧑‍🎓 学生区',
           items: [
             { label: '闪烁LED — 第一行代码', link: '/students/led-blink/' },
+            { label: '蜂鸣器音乐', link: '/students/buzzer-music/' },
+            { label: '光控灯', link: '/students/light-switch/' },
+            { label: '温度报警器', link: '/students/temp-alarm/' },
+            { label: '电机控制基础', link: '/students/motor-ctrl/' },
+            { label: '舵机控制', link: '/students/servo-sweep/' },
+            { label: '红外遥控', link: '/students/ir-remote/' },
             { label: '超声波避障小车', link: '/students/ultrasonic/' },
             { label: '红外循迹小车', link: '/students/line-follow/' },
-            { label: '电机控制基础', link: '/students/motor-ctrl/' },
+            { label: '蓝牙遥控小车', link: '/students/bluetooth-rc/' },
           ],
         },
         {

@@ -1,0 +1,136 @@
+---
+title: "蓝牙遥控小车 — 用手机控制你的作品"
+slug: "students/bluetooth-rc"
+section: "students"
+category: "进阶项目"
+kit: "ai-smart-car"
+parts: ["hc-sr04", "l298n", "tt-motor", "arduino-uno"]
+difficulty: 4
+duration: "120分钟"
+version: "1.0"
+updated: "2026-06-09"
+---
+
+import VersionBadge from '../../../components/VersionBadge.astro';
+import DifficultyStars from '../../../components/DifficultyStars.astro';
+import KitCTA from '../../../components/KitCTA.astro';
+import Troubleshooting from '../../../components/Troubleshooting.astro';
+
+<VersionBadge version={frontmatter.version} updated={frontmatter.updated} />
+&nbsp;&nbsp;
+<DifficultyStars difficulty={frontmatter.difficulty} />
+&nbsp;&nbsp;
+<span style="font-size:0.85rem;color:var(--color-text-secondary);">⏱️ {frontmatter.duration}</span>
+
+---
+
+## 📋 材料清单
+
+| 元件 | 型号 | 数量 |
+|---|---|---|
+| 主控板 | Arduino Uno R3 | 1 |
+| 蓝牙模块 | HC-05 | 1 |
+| 电机驱动板 | L298N | 1 |
+| TT 马达 + 轮子 | — | 2 |
+| 小车底盘 + 电池盒 | — | 1 |
+| 杜邦线 | 公母各一包 | 若干 |
+
+## 🔌 接线图
+
+| HC-05 | Arduino |
+|---|---|
+| VCC | 5V |
+| GND | GND |
+| TXD | RX (D0) |
+| RXD | TX (D1) |
+
+电机接线同《电机控制基础》。
+
+> ⚠️ 上传代码前先拔掉 HC-05 的 TXD/RXD，上传完再接回。
+
+## 💻 代码
+
+```cpp
+#define IN1 5
+#define IN2 6
+#define IN3 7
+#define IN4 8
+#define ENA 3
+#define ENB 11
+
+char command;
+
+void setup() {
+  pinMode(IN1, OUTPUT); pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT); pinMode(IN4, OUTPUT);
+  pinMode(ENA, OUTPUT); pinMode(ENB, OUTPUT);
+  Serial.begin(9600);
+}
+
+void forward() {
+  analogWrite(ENA, 150); analogWrite(ENB, 150);
+  digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH); digitalWrite(IN4, LOW);
+}
+
+void backward() {
+  analogWrite(ENA, 150); analogWrite(ENB, 150);
+  digitalWrite(IN1, LOW); digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, LOW); digitalWrite(IN4, HIGH);
+}
+
+void turnLeft() {
+  analogWrite(ENA, 120); analogWrite(ENB, 120);
+  digitalWrite(IN1, LOW); digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, HIGH); digitalWrite(IN4, LOW);
+}
+
+void turnRight() {
+  analogWrite(ENA, 120); analogWrite(ENB, 120);
+  digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW); digitalWrite(IN4, HIGH);
+}
+
+void stop() {
+  digitalWrite(IN1, LOW); digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW); digitalWrite(IN4, LOW);
+}
+
+void loop() {
+  if (Serial.available() > 0) {
+    command = Serial.read();
+    switch (command) {
+      case 'F': forward();  break;
+      case 'B': backward(); break;
+      case 'L': turnLeft(); break;
+      case 'R': turnRight();break;
+      case 'S': stop();     break;
+    }
+  }
+}
+```
+
+## 📱 手机控制
+
+1. 下载蓝牙串口 App（推荐"Serial Bluetooth Terminal"）
+2. 手机蓝牙配对 HC-05（密码 1234 或 0000）
+3. App 中连接 HC-05，发送单字符指令：
+   - `F` = 前进 · `B` = 后退 · `L` = 左转 · `R` = 右转 · `S` = 停止
+
+<div class="success-box">
+  <h4>✅ 成功现象</h4>
+  <p>在手机上发送 F/B/L/R/S 指令，小车实时响应。有效遥控距离约 10 米。</p>
+</div>
+
+<div class="challenge-box">
+  <h4>🏆 挑战任务</h4>
+  <ul>
+    <li><strong>基础：</strong>实现蓝牙遥控（同本教程）</li>
+    <li><strong>进阶：</strong>用 App Inventor 自己做遥控 App，用方向键替代字母指令</li>
+    <li><strong>高手：</strong>蓝牙 + 超声波避障结合——遥控优先，无指令时自动避障</li>
+  </ul>
+</div>
+
+<Troubleshooting parts={frontmatter.parts} section={frontmatter.section} />
+
+<KitCTA kit={frontmatter.kit} section={frontmatter.section} />

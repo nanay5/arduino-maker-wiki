@@ -1,0 +1,107 @@
+---
+title: "温度报警器 — 用传感器守护安全"
+slug: "students/temp-alarm"
+section: "students"
+category: "入门项目"
+kit: "starter"
+parts: ["arduino-uno"]
+difficulty: 2
+duration: "60分钟"
+version: "1.0"
+updated: "2026-06-09"
+---
+
+import VersionBadge from '../../../components/VersionBadge.astro';
+import DifficultyStars from '../../../components/DifficultyStars.astro';
+import KitCTA from '../../../components/KitCTA.astro';
+import Troubleshooting from '../../../components/Troubleshooting.astro';
+
+<VersionBadge version={frontmatter.version} updated={frontmatter.updated} />
+&nbsp;&nbsp;
+<DifficultyStars difficulty={frontmatter.difficulty} />
+&nbsp;&nbsp;
+<span style="font-size:0.85rem;color:var(--color-text-secondary);">⏱️ {frontmatter.duration}</span>
+
+---
+
+## 📋 材料清单
+
+| 元件 | 型号 | 数量 |
+|---|---|---|
+| 主控板 | Arduino Uno R3 | 1 |
+| 温度传感器 | LM35 | 1 |
+| LED | 红色 + 绿色 | 各1 |
+| 电阻 | 220Ω | 2 |
+| 蜂鸣器 | — | 1 |
+| 面包板 + 杜邦线 | — | 若干 |
+
+## 🔌 接线图
+
+| LM35 | Arduino |
+|---|---|
+| VCC | 5V |
+| GND | GND |
+| OUT | A0 |
+
+LED 红灯→D12（经220Ω），绿灯→D13（经220Ω），蜂鸣器→D8。
+
+## 💻 代码
+
+```cpp
+#define TEMP_SENSOR A0
+#define RED_LED 12
+#define GREEN_LED 13
+#define BUZZER 8
+
+void setup() {
+  pinMode(RED_LED, OUTPUT);
+  pinMode(GREEN_LED, OUTPUT);
+  pinMode(BUZZER, OUTPUT);
+  Serial.begin(9600);
+}
+
+float readTemp() {
+  int value = analogRead(TEMP_SENSOR);
+  float voltage = value * (5.0 / 1023.0);
+  return voltage * 100.0;  // LM35: 10mV/°C
+}
+
+void loop() {
+  float temp = readTemp();
+  Serial.print("温度: "); Serial.print(temp); Serial.println(" °C");
+
+  if (temp > 30.0) {
+    digitalWrite(RED_LED, HIGH);
+    digitalWrite(GREEN_LED, LOW);
+    tone(BUZZER, 1000, 200);  // 高温报警
+  } else {
+    digitalWrite(RED_LED, LOW);
+    digitalWrite(GREEN_LED, HIGH);
+  }
+  delay(1000);
+}
+```
+
+## ⚡ 上传与测试
+
+1. 接好 LM35、LED 和蜂鸣器
+2. 上传代码，打开串口监视器观察温度值
+3. 用手指捏住 LM35，温度上升超过 30°C 时红灯亮 + 蜂鸣器响
+
+<div class="success-box">
+  <h4>✅ 成功现象</h4>
+  <p>正常温度时绿灯亮。温度超过 30°C 时红灯亮起、蜂鸣器发出警报声、串口打印实时温度。</p>
+</div>
+
+<div class="challenge-box">
+  <h4>🏆 挑战任务</h4>
+  <ul>
+    <li><strong>基础：</strong>修改报警温度阈值（30°C）</li>
+    <li><strong>进阶：</strong>加一个微型风扇（小马达 + 扇叶），高温时自动开启散热</li>
+    <li><strong>高手：</strong>做一个温控系统——低于25°C制热（红灯），25-30°C正常，高于30°C制冷（风扇）</li>
+  </ul>
+</div>
+
+<Troubleshooting parts={frontmatter.parts} section={frontmatter.section} />
+
+<KitCTA kit={frontmatter.kit} section={frontmatter.section} />

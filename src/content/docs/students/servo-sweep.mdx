@@ -1,0 +1,93 @@
+---
+title: "舵机控制 — 让电机精确转动"
+slug: "students/servo-sweep"
+section: "students"
+category: "关键组件"
+kit: "starter"
+parts: ["servo", "arduino-uno"]
+difficulty: 2
+duration: "45分钟"
+version: "1.0"
+updated: "2026-06-09"
+---
+
+import VersionBadge from '../../../components/VersionBadge.astro';
+import DifficultyStars from '../../../components/DifficultyStars.astro';
+import KitCTA from '../../../components/KitCTA.astro';
+import Troubleshooting from '../../../components/Troubleshooting.astro';
+
+<VersionBadge version={frontmatter.version} updated={frontmatter.updated} />
+&nbsp;&nbsp;
+<DifficultyStars difficulty={frontmatter.difficulty} />
+&nbsp;&nbsp;
+<span style="font-size:0.85rem;color:var(--color-text-secondary);">⏱️ {frontmatter.duration}</span>
+
+---
+
+## 📋 材料清单
+
+| 元件 | 型号 | 数量 |
+|---|---|---|
+| 主控板 | Arduino Uno R3 | 1 |
+| 舵机 | SG90 | 1 |
+| 杜邦线 | 公母各3根 | — |
+
+## 🔌 接线图
+
+| SG90 舵机 | Arduino |
+|---|---|
+| 棕色（GND） | GND |
+| 红色（VCC） | 5V |
+| 橙色（信号） | D9 |
+
+> ⚠️ 如果舵机抖动或不动，说明 5V 供电不足——给舵机单独供电（5V 外接电源），GND 需共地。
+
+## 💻 代码
+
+```cpp
+#include <Servo.h>
+
+Servo myServo;
+int angle = 0;
+
+void setup() {
+  myServo.attach(9);
+}
+
+void loop() {
+  // 0° → 180° 慢扫
+  for (angle = 0; angle <= 180; angle++) {
+    myServo.write(angle);
+    delay(15);
+  }
+  // 180° → 0° 慢扫
+  for (angle = 180; angle >= 0; angle--) {
+    myServo.write(angle);
+    delay(15);
+  }
+}
+```
+
+## ⚡ 上传与测试
+
+1. 舵机棕色→GND，红色→5V，橙色→D9
+2. 上传代码
+3. 舵机从 0° 缓慢转到 180°，再反向转回
+
+<div class="success-box">
+  <h4>✅ 成功现象</h4>
+  <p>舵机平滑地从 0 度扫到 180 度再扫回来，循环往复。无抖动、无卡顿。</p>
+</div>
+
+<div class="challenge-box">
+  <h4>🏆 挑战任务</h4>
+  <ul>
+    <li><strong>基础：</strong>修改 delay 值改变扫描速度</li>
+    <li><strong>进阶：</strong>用两个按钮手动控制舵机左右旋转</li>
+    <li><strong>高手：</strong>超声波 + 舵机做一个雷达扫描装置——舵机扫描时串口打印角度+距离</li>
+  </ul>
+</div>
+
+<Troubleshooting parts={frontmatter.parts} section={frontmatter.section} />
+
+<KitCTA kit={frontmatter.kit} section={frontmatter.section} />

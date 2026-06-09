@@ -1,0 +1,107 @@
+---
+title: "红外遥控 — 给 Arduino 一个遥控器"
+slug: "students/ir-remote"
+section: "students"
+category: "进阶项目"
+kit: "starter"
+parts: ["arduino-uno"]
+difficulty: 2
+duration: "60分钟"
+version: "1.0"
+updated: "2026-06-09"
+---
+
+import VersionBadge from '../../../components/VersionBadge.astro';
+import DifficultyStars from '../../../components/DifficultyStars.astro';
+import KitCTA from '../../../components/KitCTA.astro';
+import Troubleshooting from '../../../components/Troubleshooting.astro';
+
+<VersionBadge version={frontmatter.version} updated={frontmatter.updated} />
+&nbsp;&nbsp;
+<DifficultyStars difficulty={frontmatter.difficulty} />
+&nbsp;&nbsp;
+<span style="font-size:0.85rem;color:var(--color-text-secondary);">⏱️ {frontmatter.duration}</span>
+
+---
+
+## 📋 材料清单
+
+| 元件 | 型号 | 数量 |
+|---|---|---|
+| 主控板 | Arduino Uno R3 | 1 |
+| 红外接收头 | VS1838B (HX1838) | 1 |
+| 红外遥控器 | 配套 | 1 |
+| LED | 红+绿+蓝 | 各1 |
+| 电阻 | 220Ω | 3 |
+| 面包板 + 杜邦线 | — | 若干 |
+
+## 🔌 接线图
+
+| VS1838B | Arduino |
+|---|---|
+| GND | GND |
+| VCC | 5V |
+| OUT | D2 |
+
+红 LED→D11，绿 LED→D12，蓝 LED→D13（均经220Ω电阻接地）。
+
+## 💻 代码
+
+> 先安装 IRremote 库：Arduino IDE → 工具 → 管理库 → 搜索 "IRremote" → 安装。
+
+```cpp
+#include <IRremote.h>
+
+#define IR_PIN 2
+#define RED 11
+#define GREEN 12
+#define BLUE 13
+
+void setup() {
+  pinMode(RED, OUTPUT); pinMode(GREEN, OUTPUT); pinMode(BLUE, OUTPUT);
+  Serial.begin(9600);
+  IrReceiver.begin(IR_PIN, ENABLE_LED_FEEDBACK);
+  Serial.println("红外遥控器已就绪，按遥控器按钮");
+}
+
+void loop() {
+  if (IrReceiver.decode()) {
+    uint32_t code = IrReceiver.decodedIRData.decodedRawData;
+    Serial.print("收到红外码: 0x");
+    Serial.println(code, HEX);
+
+    // 根据你的遥控器按键码修改以下值
+    switch (code) {
+      case 0xBA45FF00: digitalWrite(RED, !digitalRead(RED)); break;     // 按键1
+      case 0xB946FF00: digitalWrite(GREEN, !digitalRead(GREEN)); break; // 按键2
+      case 0xB847FF00: digitalWrite(BLUE, !digitalRead(BLUE)); break;   // 按键3
+    }
+    IrReceiver.resume();
+  }
+}
+```
+
+## ⚡ 上传与测试
+
+1. 接好红外接收模块和三个 LED
+2. 上传代码，打开串口监视器
+3. 对准接收头按遥控器按钮，串口打印红外码（HEX 格式）
+4. 把打印出的码替换到代码 switch 中
+
+<div class="success-box">
+  <h4>✅ 成功现象</h4>
+  <p>首次运行串口打印每个按键的红外码。把码填入代码后重新上传，按对应按钮 LED 开关切换。</p>
+</div>
+
+<div class="challenge-box">
+  <h4>🏆 挑战任务</h4>
+  <ul>
+    <li><strong>基础：</strong>用遥控器上的数字键控制 3 个 LED 开关</li>
+    <li><strong>进阶：</strong>用遥控器方向键控制小车（红外遥控+电机驱动）</li>
+    <li><strong>高手：</strong>做一个红外遥控 RGB 调色灯——用不同按键调出不同颜色</li>
+  </ul>
+</div>
+
+<Troubleshooting parts={frontmatter.parts} section={frontmatter.section} />
+
+<KitCTA kit={frontmatter.kit} section={frontmatter.section} />
