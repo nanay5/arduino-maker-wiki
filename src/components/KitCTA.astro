@@ -1,0 +1,32 @@
+---
+import kitsData from '../data/kits.json';
+
+export interface Props {
+  kit: string;
+  section: string;
+}
+
+const { kit, section } = Astro.props;
+
+// 仅在学生区和高阶区显示
+const shouldShow = section === 'students' || section === 'advanced';
+if (!shouldShow) {
+  return;
+}
+
+const kitInfo = kitsData.kits[kit as keyof typeof kitsData.kits];
+if (!kitInfo) {
+  return;
+}
+---
+
+<div class="kit-cta">
+  <div>
+    <h4>🛒 {kitInfo.name}</h4>
+    <p>含本教程所需全部元件 · {kitInfo.price}</p>
+  </div>
+  <div class="cta-buttons">
+    <a class="btn-primary" href={kitInfo.buy_link}>查看套件</a>
+    <a class="btn-secondary" href={kitInfo.consult_link}>学校/机构合作咨询</a>
+  </div>
+</div>

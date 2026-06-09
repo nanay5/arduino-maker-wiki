@@ -1,0 +1,76 @@
+{
+  "entries": [
+    {
+      "id": "hc-sr04-zero",
+      "part": "hc-sr04",
+      "symptom": "串口显示距离为 0",
+      "cause": "Trig/Echo 引脚接反或杜邦线接触不良",
+      "fix": "交换 Trig 和 Echo 引脚，检查杜邦线是否插紧",
+      "severity": "common"
+    },
+    {
+      "id": "hc-sr04-wrong",
+      "part": "hc-sr04",
+      "symptom": "距离值跳动很大或不稳定",
+      "cause": "供电不稳或被测物表面不平整",
+      "fix": "确保 Arduino 5V 供电稳定，被测物表面平整且正对传感器",
+      "severity": "common"
+    },
+    {
+      "id": "l298n-no-move",
+      "part": "l298n",
+      "symptom": "电机不转或转速极低",
+      "cause": "电机驱动板未单独供电",
+      "fix": "给 L298N 的 12V/GND 端子接 6-12V 外接电源",
+      "severity": "common"
+    },
+    {
+      "id": "l298n-one-side",
+      "part": "l298n",
+      "symptom": "只有一侧电机转动",
+      "cause": "IN1-IN4 有一路接线松动或 ENA/ENB 跳线帽脱落",
+      "fix": "检查 IN1-IN4 杜邦线是否插紧，确认 ENA 和 ENB 跳线帽在位",
+      "severity": "common"
+    },
+    {
+      "id": "arduino-upload-fail",
+      "part": "arduino-uno",
+      "symptom": "程序上传失败",
+      "cause": "串口被占用或板型选错",
+      "fix": "关闭串口监视器，检查 IDE 板型设置为 Arduino Uno，确认 COM 口正确",
+      "severity": "common"
+    },
+    {
+      "id": "arduino-not-recognized",
+      "part": "arduino-uno",
+      "symptom": "电脑不识别 Arduino",
+      "cause": "USB 数据线仅支持充电不支持数据，或驱动未安装",
+      "fix": "更换为数据线（非仅充电线），Windows 用户安装 CH340/CH341 驱动",
+      "severity": "common"
+    },
+    {
+      "id": "infrared-no-detect",
+      "part": "infrared-sensor",
+      "symptom": "循迹模块无法识别黑线",
+      "cause": "传感器高度不合适或环境光干扰",
+      "fix": "调整传感器距地面 1-2cm，调节模块上电位器改变灵敏度，避免阳光直射",
+      "severity": "common"
+    },
+    {
+      "id": "servo-jitter",
+      "part": "servo",
+      "symptom": "舵机抖动或不回中",
+      "cause": "PWM 信号不稳或供电不足",
+      "fix": "舵机使用独立 5V 供电，不要从 Arduino 5V 引脚取电",
+      "severity": "common"
+    },
+    {
+      "id": "tt-motor-slow",
+      "part": "tt-motor",
+      "symptom": "TT 马达转速不均匀",
+      "cause": "电池电量低或 PWM 值设置不当",
+      "fix": "换新电池或使用 7.4V/11.1V 锂电池组，PWM 值不低于 80",
+      "severity": "rare"
+    }
+  ]
+}

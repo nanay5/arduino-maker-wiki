@@ -1,0 +1,25 @@
+{
+  "kits": {
+    "starter": {
+      "name": "Arduino AI 创客入门套件",
+      "price": "¥299 起",
+      "includes": ["Arduino Uno R3", "LED×5（红黄绿蓝白）", "蜂鸣器", "光敏电阻", "按钮×2", "舵机 SG90", "杜邦线（公母各20根）", "面包板 + 跳线"],
+      "buy_link": "/hardware/kits/#starter",
+      "consult_link": "/hardware/kits/#consult"
+    },
+    "ai-smart-car": {
+      "name": "AI 智能小车套件",
+      "price": "¥599 起",
+      "includes": ["Arduino Uno R3", "HC-SR04 超声波传感器", "L298N 电机驱动板", "TT 马达×4 + 轮子", "红外循迹模块×2", "HC-05 蓝牙模块", "小车底盘 + 电池盒", "杜邦线（公母各30根）", "螺丝刀 + 螺柱包"],
+      "buy_link": "/hardware/kits/#ai-smart-car",
+      "consult_link": "/hardware/kits/#consult"
+    },
+    "classroom-12": {
+      "name": "12人课堂套装",
+      "price": "¥6,000 起",
+      "includes": ["AI 智能小车套件×6", "教师演示套件×1", "备件包（传感器×2、马达×4、杜邦线×40、驱动板×1）", "16课时 PPT + 教案 + 学生任务单", "售后技术支持群 + 远程排障"],
+      "buy_link": "/hardware/kits/#classroom-12",
+      "consult_link": "/hardware/kits/#consult"
+    }
+  }
+}

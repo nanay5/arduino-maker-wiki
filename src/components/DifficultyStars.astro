@@ -1,0 +1,14 @@
+---
+export interface Props {
+  difficulty: number; // 1-5
+}
+
+const { difficulty } = Astro.props;
+const max = 5;
+---
+
+<span class="difficulty-stars" title={`难度 ${difficulty}/5`}>
+  {Array.from({ length: max }, (_, i) => (
+    <span class={i < difficulty ? 'active' : 'inactive'}>⭐</span>
+  ))}
+</span>

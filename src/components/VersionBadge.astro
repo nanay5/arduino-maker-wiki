@@ -1,0 +1,14 @@
+---
+export interface Props {
+  version: string;
+  updated: string;
+}
+
+const { version, updated } = Astro.props;
+---
+
+<span class="version-badge">
+  版本 v{version}
+  <span aria-hidden="true">·</span>
+  更新 {updated}
+</span>

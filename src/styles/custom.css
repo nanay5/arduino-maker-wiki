@@ -1,1 +1,503 @@
-/* Arduino AI 创客教育 Wiki — custom styles (placeholder, full theme in Task 2) */
+/* ========================================
+   Arduino AI 创客教育 Wiki — 创客工坊风
+   ======================================== */
+
+/* --- Design Tokens --- */
+:root {
+  --color-bg: #faf8f5;
+  --color-surface: #ffffff;
+  --color-text: #2b2b2b;
+  --color-text-secondary: #6b6b6b;
+  --color-accent: #f4a261;
+  --color-accent-hover: #e07b2c;
+  --color-code-bg: #1e1e1e;
+  --color-border: #e8e4df;
+  --color-success-bg: #e8f5e9;
+  --color-success-border: #4caf50;
+  --color-success-text: #2e7d32;
+  --color-challenge-bg: #fff3e0;
+  --color-challenge-border: #ff9800;
+  --color-challenge-text: #e65100;
+  --color-hero-bg: linear-gradient(135deg, #2b2b2b 0%, #1a1a2e 100%);
+
+  --font-heading: 'Noto Serif CJK SC', 'Source Han Serif SC', 'STSong', serif;
+  --font-body: 'Noto Sans CJK SC', 'Source Han Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Dark mode */
+:root[data-theme='dark'] {
+  --color-bg: #1a1a1a;
+  --color-surface: #2b2b2b;
+  --color-text: #e0e0e0;
+  --color-text-secondary: #999;
+  --color-border: #3a3a3a;
+  --color-success-bg: #1b3a1b;
+  --color-challenge-bg: #3a2e1b;
+  --color-hero-bg: linear-gradient(135deg, #0d0d0d 0%, #1a1a2e 100%);
+}
+
+/* --- Global overrides --- */
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* --- Code blocks --- */
+pre, code {
+  font-family: var(--font-mono);
+}
+
+pre {
+  background-color: var(--color-code-bg) !important;
+  border-radius: var(--radius-md) !important;
+}
+
+/* --- Tables --- */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+th {
+  background-color: var(--color-surface);
+  font-weight: 600;
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 2px solid var(--color-border);
+}
+
+td {
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+tr:nth-child(even) td {
+  background-color: var(--color-bg);
+}
+
+/* --- Custom callout: 成功现象 --- */
+.success-box {
+  background-color: var(--color-success-bg);
+  border-left: 4px solid var(--color-success-border);
+  color: var(--color-success-text);
+  padding: 12px 16px;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin: 16px 0;
+}
+
+.success-box h4 {
+  margin: 0 0 4px 0;
+  color: var(--color-success-text);
+}
+
+/* --- Custom callout: 挑战任务 --- */
+.challenge-box {
+  background-color: var(--color-challenge-bg);
+  border-left: 4px solid var(--color-challenge-border);
+  color: var(--color-challenge-text);
+  padding: 12px 16px;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin: 16px 0;
+}
+
+.challenge-box h4 {
+  margin: 0 0 4px 0;
+  color: var(--color-challenge-text);
+}
+
+.challenge-box ul {
+  margin: 4px 0 0 0;
+  padding-left: 20px;
+}
+
+/* --- Version badge --- */
+.version-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+
+/* --- Difficulty stars --- */
+.difficulty-stars {
+  color: var(--color-accent);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+}
+
+.difficulty-stars .inactive {
+  color: var(--color-border);
+}
+
+/* --- Kit CTA card --- */
+.kit-cta {
+  background: var(--color-hero-bg);
+  color: #fff;
+  padding: 20px 24px;
+  border-radius: var(--radius-lg);
+  margin-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.kit-cta h4 {
+  margin: 0 0 4px 0;
+  color: var(--color-accent);
+}
+
+.kit-cta p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #ccc;
+}
+
+.kit-cta .cta-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.kit-cta .btn-primary {
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  padding: 8px 20px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.kit-cta .btn-primary:hover {
+  background: var(--color-accent-hover);
+}
+
+.kit-cta .btn-secondary {
+  background: transparent;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  padding: 8px 20px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.kit-cta .btn-secondary:hover {
+  background: rgba(244, 162, 97, 0.1);
+}
+
+/* --- Troubleshooting block --- */
+.troubleshooting-block {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.troubleshooting-block summary {
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+
+.troubleshooting-block td:first-child {
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+/* --- Homepage --- */
+.home-hero {
+  background: var(--color-hero-bg);
+  color: #fff;
+  text-align: center;
+  padding: 64px 24px;
+}
+
+.home-hero .hero-tagline {
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.home-hero h1 {
+  font-size: 2.2rem;
+  line-height: 1.4;
+  margin: 0 0 12px 0;
+  color: #fff;
+}
+
+.home-hero .hero-subtitle {
+  color: #aaa;
+  max-width: 520px;
+  margin: 0 auto 24px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.home-hero .hero-ctas {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hero-ctas .btn-primary {
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  padding: 10px 28px;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.hero-ctas .btn-primary:hover {
+  background: var(--color-accent-hover);
+}
+
+.hero-ctas .btn-outline {
+  background: transparent;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  padding: 10px 28px;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.hero-ctas .btn-outline:hover {
+  background: rgba(244, 162, 97, 0.1);
+}
+
+/* --- Role cards --- */
+.role-cards {
+  display: flex;
+  gap: 16px;
+  padding: 40px 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  background: var(--color-bg);
+}
+
+.role-card {
+  flex: 1;
+  min-width: 180px;
+  max-width: 260px;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 28px 20px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  color: var(--color-text);
+  border: 2px solid transparent;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.role-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-md);
+}
+
+.role-card .role-icon {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+}
+
+.role-card h3 {
+  margin: 0 0 4px 0;
+  font-size: 1.1rem;
+}
+
+.role-card p {
+  margin: 0 0 8px;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+.role-card .role-link {
+  font-size: 0.85rem;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* --- Project cards (热门项目) --- */
+.project-cards {
+  display: flex;
+  gap: 12px;
+  padding: 0 24px 32px;
+  flex-wrap: wrap;
+}
+
+.project-cards h3 {
+  width: 100%;
+  margin: 0 0 4px 0;
+}
+
+.project-card {
+  flex: 1;
+  min-width: 200px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--color-text);
+  transition: box-shadow 0.2s;
+}
+
+.project-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.project-card .card-image {
+  height: 100px;
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.project-card .card-body {
+  padding: 12px;
+}
+
+.project-card .card-category {
+  font-size: 0.7rem;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.project-card .card-title {
+  font-weight: 600;
+  margin: 2px 0;
+  font-size: 0.9rem;
+}
+
+.project-card .card-meta {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+/* --- Trust bar --- */
+.trust-bar {
+  display: flex;
+  gap: 12px;
+  padding: 0 24px 40px;
+  flex-wrap: wrap;
+}
+
+.trust-item {
+  flex: 1;
+  min-width: 140px;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.trust-item .trust-number {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.trust-item p {
+  margin: 4px 0 0;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+/* --- Parents consult CTA --- */
+.consult-cta {
+  margin-top: 24px;
+  padding: 16px 20px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.consult-cta p {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+.consult-cta a {
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* --- Student area "今天做什么" banner --- */
+.guide-banner {
+  background: linear-gradient(135deg, #fff3e0, #faf8f5);
+  border: 1px solid var(--color-challenge-border);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+}
+
+.guide-banner p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.guide-banner a {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .home-hero h1 {
+    font-size: 1.5rem;
+  }
+
+  .role-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .role-card {
+    max-width: 100%;
+  }
+
+  .kit-cta {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .project-cards {
+    flex-direction: column;
+  }
+}
