@@ -1,0 +1,128 @@
+---
+title: "L298N 电机控制基础 — 让小车跑起来"
+slug: "motor-ctrl"
+section: "students"
+category: "关键组件"
+kit: "ai-smart-car"
+parts: ["l298n", "tt-motor", "arduino-uno"]
+difficulty: 2
+duration: "60分钟"
+version: "1.0"
+updated: "2026-06-09"
+---
+
+import VersionBadge from '../../../components/VersionBadge.astro';
+import DifficultyStars from '../../../components/DifficultyStars.astro';
+import KitCTA from '../../../components/KitCTA.astro';
+import Troubleshooting from '../../../components/Troubleshooting.astro';
+
+<VersionBadge version={frontmatter.version} updated={frontmatter.updated} />
+&nbsp;&nbsp;
+<DifficultyStars difficulty={frontmatter.difficulty} />
+&nbsp;&nbsp;
+<span style="font-size:0.85rem;color:var(--color-text-secondary);">⏱️ {frontmatter.duration}</span>
+
+---
+
+## 📋 材料清单
+
+| 元件 | 型号 | 数量 |
+|---|---|---|
+| 主控板 | Arduino Uno R3 | 1 |
+| 电机驱动板 | L298N | 1 |
+| TT 马达 + 轮子 | — | 2 |
+| 电池盒（6-12V） | — | 1 |
+| 杜邦线 | 公母各一包 | 若干 |
+
+## 🔌 接线图
+
+> *此处放置接线图*
+
+| L298N | Arduino |
+|---|---|
+| IN1 | D5 |
+| IN2 | D6 |
+| IN3 | D7 |
+| IN4 | D8 |
+| ENA | D3 |
+| ENB | D11 |
+| 12V | 外接电源 + |
+| GND | 外接电源 - 和 Arduino GND |
+
+## 💻 代码
+
+```cpp
+#define IN1 5
+#define IN2 6
+#define IN3 7
+#define IN4 8
+#define ENA 3
+#define ENB 11
+
+void setup() {
+  pinMode(IN1, OUTPUT); pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT); pinMode(IN4, OUTPUT);
+  pinMode(ENA, OUTPUT); pinMode(ENB, OUTPUT);
+}
+
+void forward() {
+  digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH); digitalWrite(IN4, LOW);
+  analogWrite(ENA, 150); analogWrite(ENB, 150);
+}
+
+void backward() {
+  digitalWrite(IN1, LOW); digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, LOW); digitalWrite(IN4, HIGH);
+  analogWrite(ENA, 150); analogWrite(ENB, 150);
+}
+
+void turnLeft() {
+  digitalWrite(IN1, LOW); digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, HIGH); digitalWrite(IN4, LOW);
+  analogWrite(ENA, 120); analogWrite(ENB, 120);
+}
+
+void turnRight() {
+  digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW); digitalWrite(IN4, HIGH);
+  analogWrite(ENA, 120); analogWrite(ENB, 120);
+}
+
+void stop() {
+  digitalWrite(IN1, LOW); digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW); digitalWrite(IN4, LOW);
+}
+
+void loop() {
+  forward();   delay(2000);
+  turnLeft();  delay(1000);
+  forward();   delay(2000);
+  turnRight(); delay(1000);
+  backward();  delay(2000);
+  stop();      delay(2000);
+}
+```
+
+## ⚡ 上传与测试
+
+1. 确保 L298N 已接外接电源（6-12V）
+2. 上传代码，观察小车是否按预设路线自动行驶
+
+<div class="success-box">
+  <h4>✅ 成功现象</h4>
+  <p>小车按预设路线自动行驶：前进 2 秒 → 左转 → 前进 2 秒 → 右转 → 后退 2 秒 → 停止 2 秒，然后循环。</p>
+</div>
+
+<div class="challenge-box">
+  <h4>🏆 挑战任务</h4>
+  <ul>
+    <li><strong>基础：</strong>修改 PWM 值，让小车跑得更快或更慢</li>
+    <li><strong>进阶：</strong>用蓝牙模块 + 手机 App 遥控小车</li>
+    <li><strong>高手：</strong>写出一个能走正方形的函数 <code>square(sideLength)</code></li>
+  </ul>
+</div>
+
+<Troubleshooting parts={frontmatter.parts} section={frontmatter.section} />
+
+<KitCTA kit={frontmatter.kit} section={frontmatter.section} />

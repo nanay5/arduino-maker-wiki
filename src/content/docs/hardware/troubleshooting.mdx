@@ -1,0 +1,42 @@
+---
+title: "通用故障排查索引"
+section: "hardware"
+version: "1.0"
+updated: "2026-06-09"
+---
+
+import VersionBadge from '../../../components/VersionBadge.astro';
+import troubleshootingData from '../../../data/troubleshooting.json';
+
+<VersionBadge version={frontmatter.version} updated={frontmatter.updated} />
+
+---
+
+本页汇集了所有元件/传感器的已知故障及解决方案。在具体教程页面中，故障排查区会自动显示与该教程所用元件匹配的条目。
+
+## 📋 全部故障条目
+
+<table>
+  <thead>
+    <tr>
+      <th>元件</th>
+      <th>现象</th>
+      <th>原因</th>
+      <th>解决方法</th>
+    </tr>
+  </thead>
+  <tbody>
+    {troubleshootingData.entries.map((entry) => (
+      <tr>
+        <td><code>{entry.part}</code></td>
+        <td>{entry.symptom}</td>
+        <td>{entry.cause}</td>
+        <td>{entry.fix}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+---
+
+> 💡 本页数据来自共享故障库 `troubleshooting.json`，新增故障条目会自动在此页和对应教程页中同步更新。

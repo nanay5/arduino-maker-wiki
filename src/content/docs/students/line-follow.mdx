@@ -1,0 +1,121 @@
+---
+title: "红外循迹小车 — 让小车沿着线走"
+slug: "line-follow"
+section: "students"
+category: "进阶项目"
+kit: "ai-smart-car"
+parts: ["infrared-sensor", "l298n", "tt-motor", "arduino-uno"]
+difficulty: 3
+duration: "90分钟"
+version: "1.0"
+updated: "2026-06-09"
+---
+
+import VersionBadge from '../../../components/VersionBadge.astro';
+import DifficultyStars from '../../../components/DifficultyStars.astro';
+import KitCTA from '../../../components/KitCTA.astro';
+import Troubleshooting from '../../../components/Troubleshooting.astro';
+
+<VersionBadge version={frontmatter.version} updated={frontmatter.updated} />
+&nbsp;&nbsp;
+<DifficultyStars difficulty={frontmatter.difficulty} />
+&nbsp;&nbsp;
+<span style="font-size:0.85rem;color:var(--color-text-secondary);">⏱️ {frontmatter.duration}</span>
+
+---
+
+## 📋 材料清单
+
+| 元件 | 型号 | 数量 |
+|---|---|---|
+| 主控板 | Arduino Uno R3 | 1 |
+| 红外循迹模块 | TCRT5000 | 2 |
+| 电机驱动板 | L298N | 1 |
+| TT 马达 + 轮子 | — | 2 |
+| 小车底盘 + 电池盒 | — | 1 |
+| 黑色电工胶带 | — | 1卷 |
+| 杜邦线 | 公母各一包 | 若干 |
+
+## 🔌 接线图
+
+> *此处放置接线图*
+
+| 左循迹模块 | Arduino | 右循迹模块 | Arduino |
+|---|---|---|---|
+| VCC | 5V | VCC | 5V |
+| GND | GND | GND | GND |
+| OUT | D2 | OUT | D4 |
+
+电机接线同《超声波避障小车》。
+
+## 💻 代码
+
+```cpp
+#define LEFT_SENSOR 2
+#define RIGHT_SENSOR 4
+#define IN1 5
+#define IN2 6
+#define IN3 7
+#define IN4 8
+#define ENA 3
+#define ENB 11
+
+void setup() {
+  pinMode(LEFT_SENSOR, INPUT);
+  pinMode(RIGHT_SENSOR, INPUT);
+  pinMode(IN1, OUTPUT); pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT); pinMode(IN4, OUTPUT);
+  pinMode(ENA, OUTPUT); pinMode(ENB, OUTPUT);
+}
+
+void forward() {
+  analogWrite(ENA, 120); analogWrite(ENB, 120);
+  digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH); digitalWrite(IN4, LOW);
+}
+
+void turnRight() {
+  analogWrite(ENA, 100); analogWrite(ENB, 100);
+  digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW); digitalWrite(IN4, HIGH);
+}
+
+void turnLeft() {
+  analogWrite(ENA, 100); analogWrite(ENB, 100);
+  digitalWrite(IN1, LOW); digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, HIGH); digitalWrite(IN4, LOW);
+}
+
+void loop() {
+  int left = digitalRead(LEFT_SENSOR);   // 0 = 在黑线上
+  int right = digitalRead(RIGHT_SENSOR);
+  if (left == 0 && right == 0) { forward(); }
+  else if (left == 1 && right == 0) { turnLeft(); }
+  else if (left == 0 && right == 1) { turnRight(); }
+  else { forward(); }
+}
+```
+
+## ⚡ 上传与测试
+
+1. 在地面用黑色胶带贴一个椭圆形赛道
+2. 上传代码，将小车放在黑线上
+3. 观察小车是否沿黑线行驶
+
+<div class="success-box">
+  <h4>✅ 成功现象</h4>
+  <p>小车自动沿黑色胶带线路行驶，在直道上加速，在弯道处自动修正方向。</p>
+</div>
+
+<div class="challenge-box">
+  <h4>🏆 挑战任务</h4>
+  <ul>
+    <li><strong>基础：</strong>沿椭圆形赛道跑一圈不脱线</li>
+    <li><strong>进阶：</strong>增加 PID 控制算法，让循迹更平稳</li>
+    <li><strong>高手：</strong>在 8 字形赛道 + 十字路口上完成完整巡线</li>
+  </ul>
+</div>
+
+<Troubleshooting parts={frontmatter.parts} section={frontmatter.section} />
+
+<KitCTA kit={frontmatter.kit} section={frontmatter.section} />

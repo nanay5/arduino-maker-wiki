@@ -1,0 +1,87 @@
+---
+title: "闪烁LED — 你的第一行 Arduino 代码"
+slug: "led-blink"
+section: "students"
+category: "入门"
+kit: "starter"
+parts: ["arduino-uno"]
+difficulty: 1
+duration: "30分钟"
+version: "1.0"
+updated: "2026-06-09"
+---
+
+import VersionBadge from '../../../components/VersionBadge.astro';
+import DifficultyStars from '../../../components/DifficultyStars.astro';
+import KitCTA from '../../../components/KitCTA.astro';
+import Troubleshooting from '../../../components/Troubleshooting.astro';
+
+<VersionBadge version={frontmatter.version} updated={frontmatter.updated} />
+&nbsp;&nbsp;
+<DifficultyStars difficulty={frontmatter.difficulty} />
+&nbsp;&nbsp;
+<span style="font-size:0.85rem;color:var(--color-text-secondary);">⏱️ {frontmatter.duration}</span>
+
+---
+
+## 📋 材料清单
+
+| 元件 | 型号 | 数量 |
+|---|---|---|
+| 主控板 | Arduino Uno R3 | 1 |
+| LED 发光二极管 | 5mm 红色 | 1 |
+| 电阻 | 220Ω | 1 |
+| 面包板 | 830 孔 | 1 |
+| 杜邦线 | 公母各一 | 2 |
+
+## 🔌 接线图
+
+> *此处放置 Fritzing 接线图或实物照片*
+
+```
+Arduino Uno       面包板
+    D13  ──────── 220Ω电阻 ──── LED正极(长脚)
+    GND  ───────────────────── LED负极(短脚)
+```
+
+## 💻 代码
+
+```cpp
+// 闪烁LED — 你的第一行 Arduino 代码
+void setup() {
+  pinMode(13, OUTPUT);  // 设置 D13 为输出
+}
+
+void loop() {
+  digitalWrite(13, HIGH);  // 点亮 LED
+  delay(1000);             // 等待 1 秒
+  digitalWrite(13, LOW);   // 熄灭 LED
+  delay(1000);             // 等待 1 秒
+}
+```
+
+## ⚡ 上传与测试
+
+1. USB 线连接 Arduino 到电脑
+2. Arduino IDE 中：**工具 → 开发板 → Arduino Uno**
+3. **工具 → 端口 →** 选择对应的 COM 口
+4. 点击 **上传** 按钮（→ 箭头）
+5. 观察板载 LED（D13）是否以 1 秒间隔闪烁
+
+<div class="success-box">
+  <h4>✅ 成功现象</h4>
+  <p>Arduino 板载 D13 引脚的 LED 以 1 秒间隔稳定闪烁。如果外接了 LED，面包板上的 LED 同步闪烁。</p>
+</div>
+
+<div class="challenge-box">
+  <h4>🏆 挑战任务</h4>
+  <ul>
+    <li><strong>基础：</strong>修改 delay() 的值，让 LED 闪烁更快或更慢</li>
+    <li><strong>进阶：</strong>用两个不同颜色的 LED 交替闪烁（红灯亮时蓝灯灭）</li>
+    <li><strong>高手：</strong>做出 SOS 求救信号：三短 · 三长 · 三短</li>
+  </ul>
+</div>
+
+<Troubleshooting parts={frontmatter.parts} section={frontmatter.section} />
+
+<KitCTA kit={frontmatter.kit} section={frontmatter.section} />
