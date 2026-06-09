@@ -1,0 +1,18 @@
+
+export default new Map([
+["src/content/docs/advanced/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fadvanced%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/docs/hardware/kits.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fhardware%2Fkits.mdx&astroContentModuleFlag=true")],
+["src/content/docs/hardware/troubleshooting.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fhardware%2Ftroubleshooting.mdx&astroContentModuleFlag=true")],
+["src/content/docs/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/docs/parents/showcase.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fparents%2Fshowcase.mdx&astroContentModuleFlag=true")],
+["src/content/docs/parents/versus.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fparents%2Fversus.mdx&astroContentModuleFlag=true")],
+["src/content/docs/students/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fstudents%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/docs/students/led-blink.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fstudents%2Fled-blink.mdx&astroContentModuleFlag=true")],
+["src/content/docs/students/line-follow.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fstudents%2Fline-follow.mdx&astroContentModuleFlag=true")],
+["src/content/docs/students/motor-ctrl.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fstudents%2Fmotor-ctrl.mdx&astroContentModuleFlag=true")],
+["src/content/docs/students/ultrasonic.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fstudents%2Fultrasonic.mdx&astroContentModuleFlag=true")],
+["src/content/docs/teachers/16-plan.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fteachers%2F16-plan.mdx&astroContentModuleFlag=true")],
+["src/content/docs/teachers/classroom.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fteachers%2Fclassroom.mdx&astroContentModuleFlag=true")],
+["src/content/docs/teachers/evaluation.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fteachers%2Fevaluation.mdx&astroContentModuleFlag=true")],
+["src/content/docs/teachers/faq.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fteachers%2Ffaq.mdx&astroContentModuleFlag=true")]]);
+		
